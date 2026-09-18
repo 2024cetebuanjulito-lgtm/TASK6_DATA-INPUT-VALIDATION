@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Fish Check ? GSCFPC Management System</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+<div id="toasts"></div>
+
+<!-- ================= LOGIN / REGISTER ================= -->
+<div id="login">
+  <div class="login-card">
+    <div class="login-brand">
+      <div><div class="logo">🐟 Fish Check</div></div>
+      <h1>Integrated Fish Quality, Inventory, Sales &amp; Profitability System</h1>
+      <p>General Santos City Fish Port Complex — a unified procurement, inspection, ledger, and executive decision platform with role-based access.</p>
+      <div class="brand-pills">
+        <span>🛒 Supply Tracking</span><span>🤖 AI Quality Checker</span><span>💰 Profitability</span><span>💬 Live Chat</span><span>📊 Decision Support</span>
+      </div>
+    </div>
+
+    <div class="login-form">
+      <!-- LOGIN -->
+      <section id="authLogin">
+        <h2>Port Operations Portal</h2>
+        <p class="sub">Sign in with your Employee ID, username, or email.</p>
+
+        <div class="field">
+          <label>Username / Email / Employee ID</label>
+          <input id="lg-id" placeholder="Enter username, email, or employee ID" autocomplete="username"/>
+        </div>
+
+        <div class="field">
+          <label>Password</label>
+          <div class="password-box">
+            <input id="lg-pw" type="password" placeholder="Enter password" autocomplete="current-password"/>
+            <button type="button" class="password-eye" onclick="togglePassword('lg-pw',this)" aria-label="Show password">👁</button>
+          </div>
+        </div>
+
+        <div class="login-options">
+          <label class="remember-row"><input id="remember-me" type="checkbox"/> <span>Remember Me</span></label>
+        </div>
+
+        <button class="btn block" onclick="doLogin()">Sign In</button>
+        <button type="button" class="link-btn" onclick="showAuth('forgot')">Forgot Password?</button>
+        <div class="err" id="lg-err"></div>
+
+        <div class="auth-switch">Don't have an account?
+          <button type="button" class="link-btn" onclick="showAuth('register')">Create Account</button>
+        </div>
+
+      </section>
+
+      <!-- REGISTER -->
+      <section id="authRegister" class="auth-panel hidden">
+        <h2>Create Account</h2>
+        <p class="sub">Register a new Fish Check user account. Owner access is controlled by the Owner account.</p>
+
+        <form id="registerForm">
+        <div class="form-row">
+          <div class="field"><label>First Name</label><input id="reg-first" placeholder="Juan"/></div>
+          <div class="field"><label>Last Name</label><input id="reg-last" placeholder="Dela Cruz"/></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label>Username</label><input id="reg-username" placeholder="juan.delacruz" autocomplete="username"/></div>
+          <div class="field"><label>Email</label><input id="reg-email" type="email" placeholder="juan@email.com" autocomplete="email"/></div>
+        </div>
+        <div class="field"><label>Contact Number</label><input id="reg-contact" type="tel" placeholder="0917-123-4567"/></div>
+        <div class="form-row">
+          <div class="field">
+            <label>Role</label>
+            <select id="reg-role">
+              <option value="Buyer">Buyer</option>
+              <option value="Classifier">Classifier</option>
+              <option value="Checker">Checker</option>
+            </select>
+          </div>
+          <div class="field"><label>Password</label><div class="password-box"><input id="reg-password" type="password" placeholder="Create password"/><button type="button" class="password-eye" onclick="togglePassword('reg-password',this)">👁</button></div></div>
+        </div>
+        <div class="field"><label>Confirm Password</label><div class="password-box"><input id="reg-confirm" type="password" placeholder="Repeat password"/><button type="button" class="password-eye" onclick="togglePassword('reg-confirm',this)">👁</button></div></div>
+
+        <button type="submit" class="btn block">Create Account</button>
+        </form>
+        <div class="err" id="reg-err"></div>
+        <div class="auth-switch">Already registered? <button type="button" class="link-btn" onclick="showAuth('login')">Back to Sign In</button></div>
+      </section>
+
+      <!-- FORGOT PASSWORD -->
+      <section id="authForgot" class="auth-panel hidden">
+        <h2>Reset Password</h2>
+        <p class="sub">For this browser-based demo, verify your account with your username/email/Employee ID and contact number.</p>
+
+        <div class="field"><label>Username / Email / Employee ID</label><input id="forgot-login" placeholder="Your account"/></div>
+        <div class="field"><label>Contact Number</label><input id="forgot-contact" type="tel" placeholder="Your registered contact number"/></div>
+        <div class="form-row">
+          <div class="field"><label>New Password</label><div class="password-box"><input id="forgot-password" type="password" placeholder="New password"/><button type="button" class="password-eye" onclick="togglePassword('forgot-password',this)">👁</button></div></div>
+          <div class="field"><label>Confirm Password</label><div class="password-box"><input id="forgot-confirm" type="password" placeholder="Repeat password"/><button type="button" class="password-eye" onclick="togglePassword('forgot-confirm',this)">👁</button></div></div>
+        </div>
+
+        <button class="btn block" onclick="resetPassword()">Reset Password</button>
+        <div class="err" id="fp-err"></div>
+        <div class="auth-switch">Remembered your password? <button type="button" class="link-btn" onclick="showAuth('login')">Back to Sign In</button></div>
+      </section>
+    </div>
+  </div>
+</div>
+<!-- ================= APP SHELL ================= -->
+<div id="app">
+  <div class="sidebar">
+    <div class="side-brand">
+      <div class="logo">🐟</div>
+      <div><div class="t">Fish Check</div><div class="st">GSCFPC</div></div>
+    </div>
+    <div class="side-role"><span>Operating as</span><span class="role-badge" id="sideRole"></span></div>
+    <nav class="side-nav" id="sideNav"></nav>
+    <div class="side-foot">
+      <div class="user-chip">
+        <div class="avatar" id="sideAv">?</div>
+        <div><div class="nm" id="sideName"></div><div class="rl" id="sideId"></div></div>
+      </div>
+      <button class="link-mini" onclick="logout()">⇦ Sign out</button>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div><div class="ttl" id="pgTitle"></div><div class="sub" id="pgSub"></div></div>
+      <div class="sp"></div>
+      <div class="date" id="topDate"></div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+  <script src="script.js"></script>
+</body>
+</html>
+
