@@ -1,139 +1,80 @@
-<!doctype html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Fish Check ? GSCFPC Management System</title>
-  <link rel="stylesheet" href="style.css"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fish Check</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="toasts"></div>
-
-<!-- ================= LOGIN / REGISTER ================= -->
-<div id="login">
-  <div class="login-card">
-    <div class="login-brand">
-      <div><div class="logo">🐟 Fish Check</div></div>
-      <h1>Integrated Fish Quality, Inventory, Sales &amp; Profitability System</h1>
-      <p>General Santos City Fish Port Complex — a unified procurement, inspection, ledger, and executive decision platform with role-based access.</p>
-      <div class="brand-pills">
-        <span>🛒 Supply Tracking</span><span>🤖 AI Quality Checker</span><span>💰 Profitability</span><span>💬 Live Chat</span><span>📊 Decision Support</span>
-      </div>
-    </div>
-
-    <div class="login-form">
-      <!-- LOGIN -->
-      <section id="authLogin">
-        <h2>Port Operations Portal</h2>
-        <p class="sub">Sign in with your Employee ID, username, or email.</p>
-
-        <div class="field">
-          <label>Username / Email / Employee ID</label>
-          <input id="lg-id" placeholder="Enter username, email, or employee ID" autocomplete="username"/>
-        </div>
-
-        <div class="field">
-          <label>Password</label>
-          <div class="password-box">
-            <input id="lg-pw" type="password" placeholder="Enter password" autocomplete="current-password"/>
-            <button type="button" class="password-eye" onclick="togglePassword('lg-pw',this)" aria-label="Show password">👁</button>
-          </div>
-        </div>
-
-        <div class="login-options">
-          <label class="remember-row"><input id="remember-me" type="checkbox"/> <span>Remember Me</span></label>
-        </div>
-
-        <button class="btn block" onclick="doLogin()">Sign In</button>
-        <button type="button" class="link-btn" onclick="showAuth('forgot')">Forgot Password?</button>
-        <div class="err" id="lg-err"></div>
-
-        <div class="auth-switch">Don't have an account?
-          <button type="button" class="link-btn" onclick="showAuth('register')">Create Account</button>
-        </div>
-
-      </section>
-
-      <!-- REGISTER -->
-      <section id="authRegister" class="auth-panel hidden">
-        <h2>Create Account</h2>
-        <p class="sub">Register a new Fish Check user account. Owner access is controlled by the Owner account.</p>
-
-        <form id="registerForm">
-        <div class="form-row">
-          <div class="field"><label>First Name</label><input id="reg-first" placeholder="Juan"/></div>
-          <div class="field"><label>Last Name</label><input id="reg-last" placeholder="Dela Cruz"/></div>
-        </div>
-        <div class="form-row">
-          <div class="field"><label>Username</label><input id="reg-username" placeholder="juan.delacruz" autocomplete="username"/></div>
-          <div class="field"><label>Email</label><input id="reg-email" type="email" placeholder="juan@email.com" autocomplete="email"/></div>
-        </div>
-        <div class="field"><label>Contact Number</label><input id="reg-contact" type="tel" placeholder="0917-123-4567"/></div>
-        <div class="form-row">
-          <div class="field">
-            <label>Role</label>
-            <select id="reg-role">
-              <option value="Buyer">Buyer</option>
-              <option value="Classifier">Classifier</option>
-              <option value="Checker">Checker</option>
-            </select>
-          </div>
-          <div class="field"><label>Password</label><div class="password-box"><input id="reg-password" type="password" placeholder="Create password"/><button type="button" class="password-eye" onclick="togglePassword('reg-password',this)">👁</button></div></div>
-        </div>
-        <div class="field"><label>Confirm Password</label><div class="password-box"><input id="reg-confirm" type="password" placeholder="Repeat password"/><button type="button" class="password-eye" onclick="togglePassword('reg-confirm',this)">👁</button></div></div>
-
-        <button type="submit" class="btn block">Create Account</button>
-        </form>
-        <div class="err" id="reg-err"></div>
-        <div class="auth-switch">Already registered? <button type="button" class="link-btn" onclick="showAuth('login')">Back to Sign In</button></div>
-      </section>
-
-      <!-- FORGOT PASSWORD -->
-      <section id="authForgot" class="auth-panel hidden">
-        <h2>Reset Password</h2>
-        <p class="sub">For this browser-based demo, verify your account with your username/email/Employee ID and contact number.</p>
-
-        <div class="field"><label>Username / Email / Employee ID</label><input id="forgot-login" placeholder="Your account"/></div>
-        <div class="field"><label>Contact Number</label><input id="forgot-contact" type="tel" placeholder="Your registered contact number"/></div>
-        <div class="form-row">
-          <div class="field"><label>New Password</label><div class="password-box"><input id="forgot-password" type="password" placeholder="New password"/><button type="button" class="password-eye" onclick="togglePassword('forgot-password',this)">👁</button></div></div>
-          <div class="field"><label>Confirm Password</label><div class="password-box"><input id="forgot-confirm" type="password" placeholder="Repeat password"/><button type="button" class="password-eye" onclick="togglePassword('forgot-confirm',this)">👁</button></div></div>
-        </div>
-
-        <button class="btn block" onclick="resetPassword()">Reset Password</button>
-        <div class="err" id="fp-err"></div>
-        <div class="auth-switch">Remembered your password? <button type="button" class="link-btn" onclick="showAuth('login')">Back to Sign In</button></div>
-      </section>
-    </div>
+ 
+<!-- LOGIN / FORGOT PASSWORD -->
+<section id="auth">
+  <div class="hero">
+    <h1>Fish Check</h1>
+    <p>Fish quality, inventory, sales and profit in one place for the General Santos City Fish Port Complex.</p>
+  </div>
+  <div class="panel">
+    <form id="login">
+      <h2>Welcome back</h2>
+      <p class="mut small">Log in with your employee ID.</p>
+      <label>Employee ID<input name="id" required autocomplete="username" placeholder="EMP-0001"></label>
+      <label>Password
+        <span class="pw"><input type="password" name="pw" required autocomplete="current-password"><button type="button" class="eye" aria-label="Show or hide password">👁</button></span>
+      </label>
+      <button class="btn wide">Log in</button>
+      <p><button type="button" class="link" data-go="forgot">Forgot password?</button></p>
+  
+   
+    </form>
+ 
+    <form id="forgot" hidden>
+      <h2>Reset password</h2>
+      <label>Employee ID<input name="id" required></label>
+      <label>New password
+        <span class="pw"><input type="password" name="pw" data-pw required minlength="6" autocomplete="new-password"><button type="button" class="eye" aria-label="Show or hide password">👁</button></span>
+      </label>
+      <div class="meter" aria-hidden="true"><i></i></div>
+      <label>Confirm password
+        <span class="pw"><input type="password" name="pw2" data-pw required minlength="6" autocomplete="new-password"><button type="button" class="eye" aria-label="Show or hide password">👁</button></span>
+      </label>
+      <p class="gen">Generate password:
+        <button type="button" class="btn ghost sm" data-gen="weak">Weak</button>
+        <button type="button" class="btn ghost sm" data-gen="medium">Medium</button>
+        <button type="button" class="btn ghost sm" data-gen="strong">Strong</button>
+      </p>
+      <button class="btn wide">Update password</button>
+      <p><button type="button" class="link" data-go="login">Back to log in</button></p>
+    </form>
+  </div>
+</section>
+ 
+<!-- APP (filled by script.js according to the user's role) -->
+<div id="app" hidden>
+  <aside>
+    <div class="brand"><b><svg class="i" viewBox="0 0 24 24" style="stroke:#fff"><path d="M3 12c3-5 8-6 12-4l5-2-2 5 2 5-5-2c-4 2-9 1-12-4z"/><circle cx="9" cy="11" r=".6"/></svg></b><span>Fish Check</span></div>
+    <nav id="nav" aria-label="Main"></nav>
+    <div id="me"></div>
+    <button class="collapse" id="collapse" aria-label="Collapse menu"><svg class="i" viewBox="0 0 24 24"><path d="m11 17-5-5 5-5M18 17l-5-5 5-5"/></svg></button>
+  </aside>
+  <div class="shell">
+    <header class="top">
+      <h1 id="title"></h1>
+      <time id="clock" class="clock" aria-label="Current date and time"></time>
+      <button class="ib" id="theme" aria-label="Toggle dark mode"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+      <button class="ib" id="logout" aria-label="Log out"><svg class="i" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg></button>
+      <div class="av" id="avatar" aria-hidden="true"></div>
+    </header>
+    <main id="main"></main>
   </div>
 </div>
-<!-- ================= APP SHELL ================= -->
-<div id="app">
-  <div class="sidebar">
-    <div class="side-brand">
-      <div class="logo">🐟</div>
-      <div><div class="t">Fish Check</div><div class="st">GSCFPC</div></div>
-    </div>
-    <div class="side-role"><span>Operating as</span><span class="role-badge" id="sideRole"></span></div>
-    <nav class="side-nav" id="sideNav"></nav>
-    <div class="side-foot">
-      <div class="user-chip">
-        <div class="avatar" id="sideAv">?</div>
-        <div><div class="nm" id="sideName"></div><div class="rl" id="sideId"></div></div>
-      </div>
-      <button class="link-mini" onclick="logout()">⇦ Sign out</button>
-    </div>
-  </div>
-  <div class="main">
-    <div class="topbar">
-      <div><div class="ttl" id="pgTitle"></div><div class="sub" id="pgSub"></div></div>
-      <div class="sp"></div>
-      <div class="date" id="topDate"></div>
-    </div>
-    <div class="content" id="content"></div>
-  </div>
-</div>
-  <script src="script.js"></script>
+ 
+<dialog id="dlg"><p id="dlgq">Delete this record?</p><form method="dialog" class="acts"><button class="btn ghost" value="no">Cancel</button><button class="btn danger" value="yes">Delete</button></form></dialog>
+<div id="toast" role="status"></div>
+<script src="script.js"></script>
 </body>
 </html>
-
+ 
